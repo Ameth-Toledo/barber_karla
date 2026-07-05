@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientes - Barberia</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Barber<span>ia</span></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>Clientes</h1>
+        <p>Historial y frecuencia de visitas</p>
+      </div>
+      <button class="btn btn-primary" id="btn-nuevo-cliente">+ Nuevo cliente</button>
+    </div>
+
+    <div class="card mt-24">
+      <div class="toolbar">
+        <input type="text" id="f-buscar" placeholder="Buscar por nombre...">
+      </div>
+      <div id="tabla-clientes"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title">Nuevo cliente</h3>
+    <form id="form-cliente">
+      <input type="hidden" id="cl-id">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" id="cl-nombre" required>
+      </div>
+      <div class="field">
+        <label>Telefono</label>
+        <input type="text" id="cl-telefono">
+      </div>
+      <div class="field">
+        <label>Notas</label>
+        <textarea id="cl-notas" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="btn-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/clientes.js"></script>
+</body>
+</html>

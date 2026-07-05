@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citas - Barberia</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/vendor/chart.umd.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Barber<span>ia</span></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>Citas</h1>
+        <p>Registro diario de clientes agendados</p>
+      </div>
+      <button class="btn btn-primary" id="btn-nueva-cita">+ Nueva cita</button>
+    </div>
+
+    <div class="card mt-24">
+      <h2>Citas por dia (mes actual)</h2>
+      <div class="chart-wrap small"><canvas id="chart-citas-mes"></canvas></div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="toolbar">
+        <div class="field" style="margin-bottom:0">
+          <label>Desde</label>
+          <input type="date" id="f-desde">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Hasta</label>
+          <input type="date" id="f-hasta">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Estado</label>
+          <select id="f-estado">
+            <option value="">Todos</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="completada">Completada</option>
+            <option value="cancelada">Cancelada</option>
+          </select>
+        </div>
+        <div class="field" style="margin-bottom:0; align-self: flex-end;">
+          <button class="btn" id="btn-filtrar">Filtrar</button>
+        </div>
+      </div>
+      <div id="tabla-citas"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title">Nueva cita</h3>
+    <form id="form-cita">
+      <input type="hidden" id="c-id">
+      <div class="field">
+        <label>Cliente</label>
+        <input type="text" id="c-cliente" list="lista-clientes" placeholder="Nombre del cliente" required>
+        <datalist id="lista-clientes"></datalist>
+      </div>
+      <div class="field">
+        <label>Telefono (solo si es cliente nuevo)</label>
+        <input type="text" id="c-telefono" placeholder="555-123-4567">
+      </div>
+      <div class="field">
+        <label>Fecha</label>
+        <input type="date" id="c-fecha" required>
+      </div>
+      <div class="field">
+        <label>Hora</label>
+        <input type="time" id="c-hora" required>
+      </div>
+      <div class="field">
+        <label>Servicio</label>
+        <input type="text" id="c-servicio" value="Corte" required>
+      </div>
+      <div class="field">
+        <label>Precio</label>
+        <input type="number" id="c-precio" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Estado</label>
+        <select id="c-estado">
+          <option value="pendiente">Pendiente</option>
+          <option value="completada">Completada</option>
+          <option value="cancelada">Cancelada</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Notas</label>
+        <textarea id="c-notas" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="btn-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/citas.js"></script>
+</body>
+</html>

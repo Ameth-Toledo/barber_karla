@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Barberia</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/vendor/chart.umd.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Barber<span>ia</span></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Resumen general de citas e inventario</p>
+      </div>
+    </div>
+
+    <div class="grid grid-4" id="stat-tiles">
+      <div class="card stat-tile">
+        <h2>Citas hoy</h2>
+        <div class="value" id="stat-citas-hoy">-</div>
+        <div class="label">clientes agendados</div>
+      </div>
+      <div class="card stat-tile">
+        <h2>Citas ultimos 7 dias</h2>
+        <div class="value" id="stat-citas-semana">-</div>
+        <div class="label">total de la semana</div>
+      </div>
+      <div class="card stat-tile">
+        <h2>Frecuencia promedio</h2>
+        <div class="value" id="stat-frecuencia">-</div>
+        <div class="label">dias entre visitas por cliente</div>
+      </div>
+      <div class="card stat-tile">
+        <h2>Stock bajo</h2>
+        <div class="value" id="stat-stock-bajo">-</div>
+        <div class="label">productos por reabastecer</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mt-24">
+      <div class="card">
+        <h2>Citas por dia (ultimos 30 dias)</h2>
+        <div class="chart-wrap"><canvas id="chart-citas-dia"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Clientes mas frecuentes</h2>
+        <div class="chart-wrap"><canvas id="chart-clientes-frecuentes"></canvas></div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mt-24">
+      <div class="card">
+        <h2>Alerta de stock bajo</h2>
+        <div id="tabla-stock-bajo"></div>
+      </div>
+      <div class="card">
+        <h2>Consumo mensual - uso diario</h2>
+        <div class="chart-wrap"><canvas id="chart-consumo-mensual"></canvas></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

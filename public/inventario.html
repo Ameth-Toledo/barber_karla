@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventario - Barberia</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/vendor/chart.umd.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Barber<span>ia</span></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>Inventario</h1>
+        <p>Productos de venta, insumos de uso diario y movimientos con proveedores</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Entradas vs salidas mensuales - productos de venta</h2>
+        <div class="chart-wrap"><canvas id="chart-entradas-salidas"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Consumo mensual - uso diario</h2>
+        <div class="chart-wrap"><canvas id="chart-consumo"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="page-header" style="margin-bottom:14px;">
+        <div class="tabs">
+          <button class="tab-btn active" data-cat="venta">Productos para la venta</button>
+          <button class="tab-btn" data-cat="uso_diario">Uso diario</button>
+        </div>
+        <button class="btn btn-primary" id="btn-nuevo-producto">+ Nuevo producto</button>
+      </div>
+      <div id="tabla-productos"></div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="page-header" style="margin-bottom:14px;">
+        <h2 style="margin:0;">Movimientos de inventario</h2>
+        <button class="btn btn-primary" id="btn-nuevo-movimiento">+ Registrar movimiento</button>
+      </div>
+      <div class="toolbar">
+        <select id="f-tipo">
+          <option value="">Todos los tipos</option>
+          <option value="entrada">Entradas</option>
+          <option value="salida">Salidas</option>
+        </select>
+        <select id="f-categoria">
+          <option value="">Todas las categorias</option>
+          <option value="venta">Venta</option>
+          <option value="uso_diario">Uso diario</option>
+        </select>
+        <input type="date" id="f-desde-mov">
+        <input type="date" id="f-hasta-mov">
+        <button class="btn" id="btn-filtrar-mov">Filtrar</button>
+      </div>
+      <div id="tabla-movimientos"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-producto">
+  <div class="modal">
+    <h3 id="modal-producto-title">Nuevo producto</h3>
+    <form id="form-producto">
+      <input type="hidden" id="p-id">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" id="p-nombre" required>
+      </div>
+      <div class="field">
+        <label>Categoria</label>
+        <select id="p-categoria" required>
+          <option value="venta">Para la venta (cera, spray, etc.)</option>
+          <option value="uso_diario">Uso diario (navajas, gel, talco, etc.)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Unidad de medida</label>
+        <input type="text" id="p-unidad" value="pza" required>
+      </div>
+      <div class="field">
+        <label>Stock minimo</label>
+        <input type="number" id="p-stock-minimo" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Precio de compra</label>
+        <input type="number" id="p-precio-compra" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Precio de venta (si aplica)</label>
+        <input type="number" id="p-precio-venta" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Proveedor</label>
+        <select id="p-proveedor"><option value="">Sin proveedor</option></select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" data-close="modal-producto">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-movimiento">
+  <div class="modal">
+    <h3>Registrar movimiento</h3>
+    <form id="form-movimiento">
+      <div class="field">
+        <label>Producto</label>
+        <select id="m-producto" required></select>
+      </div>
+      <div class="field">
+        <label>Tipo</label>
+        <select id="m-tipo" required>
+          <option value="entrada">Entrada (llega del proveedor)</option>
+          <option value="salida">Salida (venta o uso en servicio)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Motivo</label>
+        <select id="m-motivo">
+          <option value="compra">Compra a proveedor</option>
+          <option value="venta">Venta a cliente</option>
+          <option value="uso_servicio">Uso en servicio</option>
+          <option value="ajuste">Ajuste</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Proveedor (si es entrada)</label>
+        <select id="m-proveedor"><option value="">-</option></select>
+      </div>
+      <div class="field">
+        <label>Cantidad</label>
+        <input type="number" id="m-cantidad" step="0.01" min="0.01" required>
+      </div>
+      <div class="field">
+        <label>Precio unitario</label>
+        <input type="number" id="m-precio" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Fecha y hora</label>
+        <input type="datetime-local" id="m-fecha" required>
+      </div>
+      <div class="field">
+        <label>Notas</label>
+        <textarea id="m-notas" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" data-close="modal-movimiento">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/inventario.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proveedores - Barberia</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Barber<span>ia</span></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>Proveedores</h1>
+        <p>Contactos y ultima entrega registrada</p>
+      </div>
+      <button class="btn btn-primary" id="btn-nuevo-proveedor">+ Nuevo proveedor</button>
+    </div>
+
+    <div class="card mt-24">
+      <div id="tabla-proveedores"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title">Nuevo proveedor</h3>
+    <form id="form-proveedor">
+      <input type="hidden" id="pr-id">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" id="pr-nombre" required>
+      </div>
+      <div class="field">
+        <label>Contacto</label>
+        <input type="text" id="pr-contacto">
+      </div>
+      <div class="field">
+        <label>Telefono</label>
+        <input type="text" id="pr-telefono">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="pr-email">
+      </div>
+      <div class="field">
+        <label>Notas</label>
+        <textarea id="pr-notas" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="btn-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/proveedores.js"></script>
+</body>
+</html>
