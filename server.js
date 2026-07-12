@@ -32,6 +32,11 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+
+  if (process.env.OPEN_BROWSER === 'true') {
+    const open = (await import('open')).default;
+    open(`http://localhost:${PORT}`);
+  }
 });
