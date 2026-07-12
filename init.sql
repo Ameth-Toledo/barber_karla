@@ -99,6 +99,25 @@ CREATE TABLE IF NOT EXISTS movimientos_inventario (
 ) ENGINE=InnoDB;
 
 -- ============================================================
+-- Ingresos diarios (registro de ingresos por cortes y servicios)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS ingresos_diarios (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  fecha           DATE NOT NULL,
+  cliente_nombre  VARCHAR(120),
+  servicio        VARCHAR(120) NOT NULL DEFAULT 'Corte',
+  cantidad        INT UNSIGNED NOT NULL DEFAULT 1,
+  precio_unitario DECIMAL(10,2) NOT NULL DEFAULT 0,
+  total           DECIMAL(10,2) NOT NULL DEFAULT 0,
+  metodo_pago     ENUM('efectivo','tarjeta','transferencia','otro') NOT NULL DEFAULT 'efectivo',
+  notas           VARCHAR(255),
+  creado_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  actualizado_en  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_ingresos_fecha (fecha),
+  INDEX idx_ingresos_metodo (metodo_pago)
+) ENGINE=InnoDB;
+
+-- ============================================================
 -- Datos iniciales sugeridos (categorias tipicas de una barberia)
 -- Puedes editar/borrar estas filas libremente desde el panel.
 -- ============================================================

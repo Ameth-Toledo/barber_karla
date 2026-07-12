@@ -9,6 +9,7 @@ const proveedoresRouter = require('./routes/proveedores');
 const productosRouter = require('./routes/productos');
 const inventarioRouter = require('./routes/inventario');
 const dashboardRouter = require('./routes/dashboard');
+const ingresosRouter = require('./routes/ingresos');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/api/proveedores', proveedoresRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/inventario', inventarioRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/ingresos', ingresosRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 

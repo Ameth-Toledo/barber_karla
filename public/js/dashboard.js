@@ -21,7 +21,6 @@ async function loadCitasResumen() {
   const data = await api.get('/api/dashboard/citas-resumen?dias=30');
 
   document.getElementById('stat-citas-hoy').textContent = data.citas_hoy;
-  document.getElementById('stat-citas-semana').textContent = data.citas_semana;
   document.getElementById('stat-frecuencia').textContent = data.promedio_dias_entre_visitas
     ? `${data.promedio_dias_entre_visitas} dias` : 'N/D';
 
@@ -73,6 +72,17 @@ async function loadCitasResumen() {
   });
 }
 
+async function loadIngresosResumen() {
+  try {
+    const data = await api.get('/api/ingresos/resumen');
+    document.getElementById('stat-ingreso-hoy').textContent = fmtMoney(data.hoy.total_ingreso);
+    document.getElementById('stat-cortes-hoy').textContent = `${data.hoy.total_cortes} cortes`;
+  } catch (err) {
+    document.getElementById('stat-ingreso-hoy').textContent = '$0';
+    document.getElementById('stat-cortes-hoy').textContent = '0 cortes';
+  }
+}
+
 async function loadInventarioResumen() {
   const data = await api.get('/api/dashboard/inventario-resumen');
 
@@ -122,4 +132,5 @@ async function loadInventarioResumen() {
 }
 
 loadCitasResumen().catch(err => alert('Error al cargar citas: ' + err.message));
+loadIngresosResumen();
 loadInventarioResumen().catch(err => alert('Error al cargar inventario: ' + err.message));

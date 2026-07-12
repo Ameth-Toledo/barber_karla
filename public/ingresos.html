@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingresos - Barberia</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/vendor/chart.umd.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Barber<span>ia</span></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>Ingresos diarios</h1>
+        <p>Registro de ingresos por cortes y servicios</p>
+      </div>
+      <button class="btn btn-primary" id="btn-nuevo-ingreso">+ Nuevo ingreso</button>
+    </div>
+
+    <div class="grid grid-3" id="stat-tiles">
+      <div class="card stat-tile">
+        <h2>Ingreso hoy</h2>
+        <div class="value" id="stat-ingreso-hoy">$0</div>
+        <div class="label" id="stat-cortes-hoy">0 cortes</div>
+      </div>
+      <div class="card stat-tile">
+        <h2>Ingreso semana</h2>
+        <div class="value" id="stat-ingreso-semana">$0</div>
+        <div class="label" id="stat-cortes-semana">0 cortes</div>
+      </div>
+      <div class="card stat-tile">
+        <h2>Ingreso mes</h2>
+        <div class="value" id="stat-ingreso-mes">$0</div>
+        <div class="label" id="stat-cortes-mes">0 cortes</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mt-24">
+      <div class="card">
+        <h2>Ingresos por dia (ultimos 30 dias)</h2>
+        <div class="chart-wrap"><canvas id="chart-ingresos-dia"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Ingresos por metodo de pago</h2>
+        <div class="chart-wrap"><canvas id="chart-ingresos-metodo"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="toolbar">
+        <div class="field" style="margin-bottom:0">
+          <label>Desde</label>
+          <input type="date" id="f-desde">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Hasta</label>
+          <input type="date" id="f-hasta">
+        </div>
+        <div class="field" style="margin-bottom:0; align-self: flex-end;">
+          <button class="btn" id="btn-filtrar">Filtrar</button>
+        </div>
+      </div>
+      <div id="tabla-ingresos"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title">Nuevo ingreso</h3>
+    <form id="form-ingreso">
+      <input type="hidden" id="i-id">
+      <div class="field">
+        <label>Fecha</label>
+        <input type="date" id="i-fecha" required>
+      </div>
+      <div class="field">
+        <label>Nombre del cliente</label>
+        <input type="text" id="i-cliente" placeholder="Nombre (opcional)">
+      </div>
+      <div class="field">
+        <label>Servicio</label>
+        <input type="text" id="i-servicio" value="Corte" required>
+      </div>
+      <div class="field">
+        <label>Cantidad</label>
+        <input type="number" id="i-cantidad" min="1" value="1" required>
+      </div>
+      <div class="field">
+        <label>Precio unitario</label>
+        <input type="number" id="i-precio" step="0.01" min="0" value="0" required>
+      </div>
+      <div class="field">
+        <label>Total</label>
+        <input type="number" id="i-total" step="0.01" min="0" value="0" readonly>
+      </div>
+      <div class="field">
+        <label>Metodo de pago</label>
+        <select id="i-metodo">
+          <option value="efectivo">Efectivo</option>
+          <option value="tarjeta">Tarjeta</option>
+          <option value="transferencia">Transferencia</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Notas</label>
+        <textarea id="i-notas" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="btn-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ingresos.js"></script>
+</body>
+</html>
